@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iLoveYou</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div id="main-object">❤️</div>
+    <div id="message" style="display:none;">Seni seviyorum!</div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let clickCount = 0;
+      const mainObject = document.getElementById("main-object");
+
+      mainObject.addEventListener("click", () => {
+        clickCount++;
+
+        if (clickCount < 3) {
+          const scale = 1 + clickCount * 0.5;
+          mainObject.style.transform = `translate(-50%, -50%) scale(${scale})`;
+        } else {
+          mainObject.classList.add("burst");
+
+          setTimeout(() => {
+            mainObject.remove();
+
+            for (let i = 0; i < 10; i++) {
+              const newObj = document.createElement("div");
+                newObj.className = "spawned";
+                newObj.innerText = "❤️"; // <-- Kalp emojisi
+              newObj.style.top = Math.random() * 90 + "vh";
+              newObj.style.left = Math.random() * 90 + "vw";
+
+              document.querySelector(".container").appendChild(newObj);
+            }
+
+            const msg = document.getElementById("message");
+            msg.style.display = "block";
+          }, 500);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
